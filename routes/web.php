@@ -12,6 +12,7 @@ Route::get('/voiture/{slug}', [HomeController::class, 'showVehicle'])->name('veh
 Route::get('/voiture/{slug}/reservation', [HomeController::class, 'reservationForm'])->name('reservation.form');
 Route::get('/faq', [HomeController::class, 'faq'])->name('faq');
 Route::get('/accompagnement', [HomeController::class, 'accompagnement'])->name('accompagnement');
+Route::get('/mentions-legales', [HomeController::class, 'mentionsLegales'])->name('mentions-legales');
 
 // SEO
 Route::get('/sitemap.xml', [SeoController::class, 'sitemap'])->name('sitemap');

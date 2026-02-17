@@ -53,4 +53,9 @@ class HomeController extends Controller
     {
         return view('pages.accompagnement');
     }
+
+        public function mentionsLegales(): View
+    {
+        return view('pages.mentions-legales');
+    }
 }
