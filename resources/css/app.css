@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        @apply bg-brand-black text-white font-sans antialiased;
+    }
+
+    ::selection {
+        @apply bg-white text-black;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+        @apply bg-brand-black;
+    }
+    ::-webkit-scrollbar-thumb {
+        @apply bg-brand-muted rounded-full;
+    }
+}
+
+@layer components {
+    /* ── Vehicle card ── */
+    .vehicle-card {
+        @apply relative overflow-hidden cursor-pointer;
+    }
+
+    .vehicle-card .overlay {
+        @apply absolute inset-0 opacity-0 transition-all duration-500 flex items-center justify-center z-20;
+        background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.55) 100%);
+    }
+
+    .vehicle-card:hover .overlay {
+        @apply opacity-100;
+    }
+
+    .vehicle-card img {
+        @apply transition-transform duration-[800ms];
+        transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .vehicle-card:hover img {
+        @apply scale-[1.06];
+    }
+
+    /* Nav link style */
+    .nav-link {
+        @apply text-sm font-semibold tracking-widest uppercase text-white transition-colors duration-300;
+    }
+
+    .nav-link:hover {
+        color: #888888;
+    }
+
+    .nav-link.active {
+        @apply text-white border-b-2 border-white pb-1;
+    }
+
+    /* Section title */
+    .section-title {
+        @apply text-3xl font-bold tracking-tight uppercase;
+    }
+
+    /* Spec grid item */
+    .spec-item {
+        @apply flex flex-col items-center justify-center py-4 px-2 border border-white/10;
+    }
+
+    .spec-item .spec-label {
+        @apply text-[10px] uppercase tracking-widest text-brand-muted mb-1;
+    }
+
+    .spec-item .spec-value {
+        @apply text-sm font-semibold;
+    }
+
+    /* Pricing row */
+    .price-row {
+        @apply flex justify-between items-center py-3 border-b border-white/10;
+    }
+
+    .price-row .price-label {
+        @apply text-xs uppercase tracking-wider text-brand-muted;
+    }
+
+    .price-row .price-value {
+        @apply text-base font-bold;
+    }
+
+    /* Description content — vehicle detail page */
+    .description-content {
+        @apply text-[15px] leading-[1.85];
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .description-content strong,
+    .description-content b {
+        @apply font-semibold text-white/80;
+    }
+
+    /* Detail section titles (Intérieur, Extérieur…) */
+    .detail-section h5 {
+        position: relative;
+        padding-bottom: 12px;
+    }
+
+    .detail-section h5::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 40px;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* ── Light variants (white background sections) ── */
+
+    /* Spec grid item — light */
+    .spec-item-light {
+        @apply flex flex-col items-center justify-center py-4 px-2 border border-black/10;
+    }
+
+    .spec-item-light .spec-label-light {
+        @apply text-[10px] uppercase tracking-widest mb-1;
+        color: rgba(0, 0, 0, 0.4);
+    }
+
+    .spec-item-light .spec-value-light {
+        @apply text-sm font-semibold;
+        color: rgba(0, 0, 0, 0.85);
+    }
+
+    /* Pricing row — light */
+    .price-row-light {
+        @apply flex justify-between items-center py-3;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .price-row-light .price-label-light {
+        @apply text-xs uppercase tracking-wider;
+        color: rgba(0, 0, 0, 0.4);
+    }
+
+    .price-row-light .price-value-light {
+        @apply text-base font-bold;
+        color: rgba(0, 0, 0, 0.85);
+    }
+
+    /* Detail sections — light (Intérieur, Extérieur…) */
+    .detail-section-light h5 {
+        position: relative;
+        padding-bottom: 12px;
+    }
+
+    .detail-section-light h5::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 40px;
+        height: 1px;
+        background: rgba(0, 0, 0, 0.2);
+    }
+}
+
+@layer utilities {
+    .text-shadow {
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+}
