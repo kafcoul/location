@@ -38,26 +38,209 @@
     <!-- Assets -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+    <!-- CKF Logo Animations -->
+    <style>
+        /* ============================================================
+           CKF MOTORS — Animated Premium Logo
+           ============================================================ */
+
+        .ckf-logo-link {
+            text-decoration: none !important;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .ckf-logo {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 0;
+            font-family: 'Montserrat', system-ui, sans-serif;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            font-size: 20px;
+            line-height: 1;
+            position: relative;
+        }
+
+        .ckf-logo--mobile {
+            font-size: 16px;
+            letter-spacing: 0.2em;
+        }
+
+        .ckf-logo__spacer {
+            display: inline-block;
+            width: 0.4em;
+        }
+
+        /* Each letter */
+        .ckf-logo__letter {
+            display: inline-block;
+            color: #ffffff;
+            position: relative;
+            animation: ckf-fadeIn 0.6s ease forwards;
+            animation-delay: calc(var(--i) * 0.08s);
+            opacity: 0;
+            transform: translateY(-8px);
+
+            /* Gold shimmer on text */
+            background: linear-gradient(
+                90deg,
+                #ffffff 0%,
+                #ffffff 40%,
+                #c4a35a 50%,
+                #ffffff 60%,
+                #ffffff 100%
+            );
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: ckf-fadeIn 0.6s ease forwards, ckf-shimmer 4s ease-in-out infinite;
+            animation-delay: calc(var(--i) * 0.08s), calc(1s + var(--i) * 0.1s);
+        }
+
+        /* MOTORS letters — slightly lighter */
+        .ckf-logo__letter--sub {
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            font-size: 0.55em;
+            background: linear-gradient(
+                90deg,
+                rgba(255,255,255,0.7) 0%,
+                rgba(255,255,255,0.7) 40%,
+                #c4a35a 50%,
+                rgba(255,255,255,0.7) 60%,
+                rgba(255,255,255,0.7) 100%
+            );
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Gold underline that slides in */
+        .ckf-logo__line {
+            display: block;
+            width: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #c4a35a, transparent);
+            margin-top: 6px;
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Hover: expand underline + glow */
+        .ckf-logo-link:hover .ckf-logo__line {
+            width: 100%;
+        }
+
+        .ckf-logo-link:hover .ckf-logo__letter {
+            animation: ckf-hoverPulse 0.4s ease forwards, ckf-shimmer 2s ease-in-out infinite;
+            animation-delay: calc(var(--i) * 0.03s), 0s;
+            text-shadow: 0 0 20px rgba(196, 163, 90, 0.3);
+        }
+
+        /* Glow effect on hover */
+        .ckf-logo-link::after {
+            content: '';
+            position: absolute;
+            inset: -10px -20px;
+            background: radial-gradient(ellipse, rgba(196, 163, 90, 0.08) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+            border-radius: 50%;
+        }
+
+        .ckf-logo-link:hover::after {
+            opacity: 1;
+        }
+
+        /* Keyframes — Letter fade in from top */
+        @keyframes ckf-fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-8px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Keyframes — Gold shimmer sweep */
+        @keyframes ckf-shimmer {
+            0%, 100% {
+                background-position: 200% center;
+            }
+            50% {
+                background-position: -200% center;
+            }
+        }
+
+        /* Keyframes — Hover bounce */
+        @keyframes ckf-hoverPulse {
+            0% {
+                transform: translateY(0) scale(1);
+            }
+            40% {
+                transform: translateY(-2px) scale(1.05);
+            }
+            100% {
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Scroll shrink effect */
+        .navbar-scrolled .ckf-logo {
+            font-size: 16px;
+            transition: font-size 0.3s ease;
+        }
+
+        .navbar-scrolled .ckf-logo--mobile {
+            font-size: 14px;
+        }
+    </style>
+
     @stack('styles')
 </head>
 <body class="min-h-screen flex flex-col bg-brand-black text-white font-sans antialiased @yield('body-class')">
 
-        <nav class="fixed top-0 left-0 right-0 z-50 bg-brand-black/90 backdrop-blur-md border-b border-white/5" id="navbar">
+        <nav class="fixed top-0 left-0 right-0 z-50 bg-brand-black/90 backdrop-blur-md border-b border-white/5 hidden lg:block" id="navbar">
         <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
-            <div class="flex items-center justify-between h-20">
+            <div class="grid grid-cols-3 items-center h-20">
 
-                                <div class="flex items-center space-x-8">
+                {{-- Gauche --}}
+                <div class="flex items-center space-x-8 justify-self-start">
                     <a href="{{ route('city.show', 'abidjan') }}"
                        class="nav-link {{ request()->is('ville/abidjan*') ? 'active' : '' }}">
                         ABIDJAN
                     </a>
                 </div>
 
-                                <a href="{{ route('home') }}" class="absolute left-1/2 -translate-x-1/2">
-                    <span class="text-xl font-bold tracking-[0.3em] uppercase">CKF MOTORS</span>
-                </a>
+                {{-- Centre — Logo toujours centré --}}
+                <div class="flex justify-center">
+                    <a href="{{ route('home') }}" class="ckf-logo-link group">
+                        <span class="ckf-logo" id="ckf-logo">
+                            <span class="ckf-logo__letter" style="--i:0">C</span>
+                            <span class="ckf-logo__letter" style="--i:1">K</span>
+                            <span class="ckf-logo__letter" style="--i:2">F</span>
+                            <span class="ckf-logo__spacer"></span>
+                            <span class="ckf-logo__letter ckf-logo__letter--sub" style="--i:3">M</span>
+                            <span class="ckf-logo__letter ckf-logo__letter--sub" style="--i:4">O</span>
+                            <span class="ckf-logo__letter ckf-logo__letter--sub" style="--i:5">T</span>
+                            <span class="ckf-logo__letter ckf-logo__letter--sub" style="--i:6">O</span>
+                            <span class="ckf-logo__letter ckf-logo__letter--sub" style="--i:7">R</span>
+                            <span class="ckf-logo__letter ckf-logo__letter--sub" style="--i:8">S</span>
+                        </span>
+                        <span class="ckf-logo__line"></span>
+                    </a>
+                </div>
 
-                                <div class="flex items-center space-x-8">
+                {{-- Droite --}}
+                <div class="flex items-center space-x-8 justify-self-end">
                     <a href="{{ route('accompagnement') }}" class="nav-link {{ request()->routeIs('accompagnement') ? 'active' : '' }}">ACCOMPAGNEMENT</a>
                     <a href="{{ route('faq') }}" class="nav-link {{ request()->routeIs('faq') ? 'active' : '' }}">FAQ</a>
 
@@ -79,7 +262,20 @@
 
         <div class="fixed top-0 left-0 right-0 z-50 lg:hidden bg-brand-black/95 backdrop-blur-md border-b border-white/5" id="mobile-navbar">
         <div class="flex items-center justify-between px-4 h-16">
-            <a href="{{ route('home') }}" class="text-lg font-bold tracking-[0.2em] uppercase">CKF MOTORS</a>
+            <a href="{{ route('home') }}" class="ckf-logo-link ckf-logo-link--mobile">
+                <span class="ckf-logo ckf-logo--mobile">
+                    <span class="ckf-logo__letter" style="--i:0">C</span>
+                    <span class="ckf-logo__letter" style="--i:1">K</span>
+                    <span class="ckf-logo__letter" style="--i:2">F</span>
+                    <span class="ckf-logo__spacer"></span>
+                    <span class="ckf-logo__letter ckf-logo__letter--sub" style="--i:3">M</span>
+                    <span class="ckf-logo__letter ckf-logo__letter--sub" style="--i:4">O</span>
+                    <span class="ckf-logo__letter ckf-logo__letter--sub" style="--i:5">T</span>
+                    <span class="ckf-logo__letter ckf-logo__letter--sub" style="--i:6">O</span>
+                    <span class="ckf-logo__letter ckf-logo__letter--sub" style="--i:7">R</span>
+                    <span class="ckf-logo__letter ckf-logo__letter--sub" style="--i:8">S</span>
+                </span>
+            </a>
             <button id="mobile-menu-btn" class="text-white focus:outline-none">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
@@ -171,6 +367,19 @@
         document.getElementById('mobile-menu-btn')?.addEventListener('click', function() {
             document.getElementById('mobile-menu').classList.toggle('hidden');
         });
+
+        // Navbar scroll effect
+        let lastScroll = 0;
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            const y = window.scrollY;
+            if (y > 50) {
+                navbar?.classList.add('navbar-scrolled');
+            } else {
+                navbar?.classList.remove('navbar-scrolled');
+            }
+            lastScroll = y;
+        }, { passive: true });
     </script>
 
     <!-- Service Worker PWA -->
