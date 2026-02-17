@@ -24,8 +24,8 @@ Application web complète de location de véhicules premium à Abidjan, dévelop
 
 ```bash
 # Cloner le projet
-git clone https://github.com/afriklabprojet/sanogo-axelle.git
-cd sanogo-axelle
+git clone https://github.com/kafcoul/location.git
+cd location
 
 # Installer les dépendances
 composer install
