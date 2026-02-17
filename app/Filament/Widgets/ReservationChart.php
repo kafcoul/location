@@ -26,7 +26,7 @@ class ReservationChart extends ChartWidget
         $now = now();
 
         $monthly = Reservation::select(
-                DB::raw("strftime('%Y-%m', created_at) as month"),
+                DB::raw("DATE_FORMAT(created_at, '%Y-%m') as month"),
                 DB::raw("SUM(CASE WHEN status = 'confirmed' THEN estimated_total ELSE 0 END) as revenue"),
                 DB::raw('COUNT(*) as cnt')
             )

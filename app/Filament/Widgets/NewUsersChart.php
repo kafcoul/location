@@ -30,7 +30,7 @@ class NewUsersChart extends ChartWidget
 
         // 1 requête : nouveaux users par mois
         $monthly = User::select(
-                DB::raw("strftime('%Y-%m', created_at) as month"),
+                DB::raw("DATE_FORMAT(created_at, '%Y-%m') as month"),
                 DB::raw('COUNT(*) as total')
             )
             ->where('created_at', '>=', $startDate)

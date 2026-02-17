@@ -34,7 +34,7 @@ class StatsOverview extends BaseWidget
         $now = now();
 
         $usersByMonth = User::select(
-                DB::raw("strftime('%Y-%m', created_at) as month"),
+                DB::raw("DATE_FORMAT(created_at, '%Y-%m') as month"),
                 DB::raw('COUNT(*) as total')
             )
             ->where('created_at', '>=', $now->copy()->subMonths(11)->startOfMonth())
@@ -44,7 +44,7 @@ class StatsOverview extends BaseWidget
         $totalUsers = User::count();
 
         $confirmedByMonth = Reservation::select(
-                DB::raw("strftime('%Y-%m', created_at) as month"),
+                DB::raw("DATE_FORMAT(created_at, '%Y-%m') as month"),
                 DB::raw('SUM(estimated_total) as revenue'),
                 DB::raw('COUNT(*) as cnt')
             )
