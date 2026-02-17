@@ -9,12 +9,12 @@ Décrire les parcours utilisateurs principaux menant à une **demande de réserv
 
 ### Préconditions
 - Le site est accessible.
-- Les villes **Paris** et **Abidjan** existent.
+- La ville **Abidjan** existe.
 - Des véhicules sont publiés (et potentiellement marqués `is_available=true`).
 
 ### Étapes
-1. L’utilisateur arrive sur la **Homepage**.
-2. Il choisit une ville : **Paris** ou **Abidjan**.
+1. L'utilisateur arrive sur la **Homepage**.
+2. Il accède au catalogue véhicules d'**Abidjan**.
 3. Il consulte la liste des véhicules de la ville.
 4. Il clique sur un véhicule pour accéder à la fiche.
 5. Il clique sur **Réserver**.

@@ -20,7 +20,7 @@ class ReservationFlowTest extends TestCase
 
         Notification::fake();
 
-        $city = City::create(['name' => 'Paris', 'slug' => 'paris']);
+        $city = City::create(['name' => 'Abidjan', 'slug' => 'abidjan']);
 
         $this->vehicle = Vehicle::create([
             'city_id'        => $city->id,
@@ -40,7 +40,7 @@ class ReservationFlowTest extends TestCase
 
     public function test_city_page_loads(): void
     {
-        $this->get('/ville/paris')->assertOk()->assertSee('Paris');
+        $this->get('/ville/abidjan')->assertOk()->assertSee('Abidjan');
     }
 
     public function test_vehicle_page_loads(): void

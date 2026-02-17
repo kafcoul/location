@@ -10,7 +10,6 @@ class CitySeeder extends Seeder
     public function run(): void
     {
         $cities = [
-            ['name' => 'Paris',   'slug' => 'paris'],
             ['name' => 'Abidjan', 'slug' => 'abidjan'],
         ];
 

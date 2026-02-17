@@ -8,10 +8,10 @@ Lister les user stories et tâches MVP pour livrer vite une V1 stable orientée 
 ## 1) MVP — User Stories (priorité haute)
 
 ### US-01 — Voir les villes
-**En tant que** visiteur, **je veux** voir Paris et Abidjan sur la homepage **afin de** accéder au catalogue.
-- Critères d’acceptation :
-  - Homepage affiche 2 CTA villes
-  - Chaque ville mène à `/ville/{slug}`
+**En tant que** visiteur, **je veux** voir Abidjan sur la homepage **afin de** accéder au catalogue.
+- Critères d'acceptation :
+  - Homepage affiche le CTA Abidjan
+  - Mène à `/ville/abidjan`
 
 ### US-02 — Voir les véhicules d’une ville
 **En tant que** visiteur, **je veux** voir la liste des véhicules d’une ville **afin de** choisir.
@@ -76,7 +76,7 @@ Lister les user stories et tâches MVP pour livrer vite une V1 stable orientée 
 ## 3) Tâches techniques (MVP)
 
 ### Core
-- Migrations + seeders (Paris/Abidjan)
+- Migrations + seeders (Abidjan)
 - Models + relations
 - Form request `StoreReservationRequest`
 - `ReservationService`

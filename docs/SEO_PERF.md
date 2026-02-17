@@ -22,7 +22,7 @@ Améliorer la visibilité (SEO local) et la vitesse (Core Web Vitals) pour maxim
 - `meta description` : prix/jour, dépôt, CTA réservation
 
 ### 1.3 Slugs propres
-- `cities.slug` : `paris`, `abidjan`
+- `cities.slug` : `abidjan`
 - `vehicles.slug` : `range-rover-sport`, etc.
 
 ---
@@ -76,7 +76,7 @@ Améliorer la visibilité (SEO local) et la vitesse (Core Web Vitals) pour maxim
 
 ---
 
-## 7) SEO local (Paris / Abidjan)
+## 7) SEO local (Abidjan)
 
 - Pages dédiées par ville avec contenu unique
 - Sections FAQ (paiement sur place, caution, conditions)
