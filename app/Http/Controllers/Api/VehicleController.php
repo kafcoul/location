@@ -40,8 +40,10 @@ class VehicleController extends Controller
             $query->where('gearbox', $request->gearbox);
         }
 
-        $sort = $request->input('sort', 'created_at');
-        $dir  = $request->input('dir', 'desc');
+        $allowedSorts = ['created_at', 'price_per_day', 'name', 'brand', 'seats', 'year'];
+        $sort = in_array($request->input('sort'), $allowedSorts, true) ? $request->input('sort') : 'created_at';
+        $dirInput = strtolower((string) $request->input('dir', 'desc'));
+        $dir  = in_array($dirInput, ['asc', 'desc'], true) ? $dirInput : 'desc';
         $query->orderBy($sort, $dir);
 
         $vehicles = $query->paginate($request->input('per_page', 15));

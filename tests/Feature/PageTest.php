@@ -92,4 +92,9 @@ class PageTest extends TestCase
     {
         $this->get('/voiture/nonexistent/reservation')->assertStatus(404);
     }
+
+    public function test_mentions_legales_page_loads(): void
+    {
+        $this->get('/mentions-legales')->assertOk()->assertSee('Mentions');
+    }
 }

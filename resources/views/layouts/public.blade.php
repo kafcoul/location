@@ -7,6 +7,9 @@
     <title>@yield('title', 'CKF Motors — Location Premium')</title>
     <meta name="description" content="@yield('meta_description', 'Location de véhicules premium à Abidjan. Paiement sur place.')">
 
+    <!-- Canonical -->
+    <link rel="canonical" href="{{ url()->current() }}">
+
     <!-- Open Graph -->
     <meta property="og:title" content="@yield('title', 'CKF Motors — Location Premium')">
     <meta property="og:description" content="@yield('meta_description', 'Location de véhicules premium à Abidjan.')">

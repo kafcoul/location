@@ -16,8 +16,10 @@ use App\Http\Controllers\Api\ReservationController;
 */
 
 // ── Public ──────────────────────────────────────
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login',    [AuthController::class, 'login']);
+Route::middleware('throttle:5,1')->group(function () {
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/login',    [AuthController::class, 'login']);
+});
 
 Route::get('/vehicles',       [VehicleController::class, 'index']);
 Route::get('/vehicles/{slug}', [VehicleController::class, 'show']);
@@ -25,7 +27,8 @@ Route::get('/vehicles/{slug}', [VehicleController::class, 'show']);
 Route::get('/cities',        [CityController::class, 'index']);
 Route::get('/cities/{slug}', [CityController::class, 'show']);
 
-Route::post('/reservations', [ReservationController::class, 'store']);
+Route::post('/reservations', [ReservationController::class, 'store'])
+    ->middleware('throttle:10,1');
 
 // ── Authentifié (Sanctum) ───────────────────────
 Route::middleware('auth:sanctum')->group(function () {

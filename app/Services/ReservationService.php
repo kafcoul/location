@@ -61,9 +61,13 @@ class ReservationService
         $reservation->load('vehicle');
 
         // Notifier tous les admins (database + mail)
-        $admins = User::role([User::ROLE_SUPER_ADMIN, User::ROLE_ADMIN])->get();
-        foreach ($admins as $admin) {
-            $admin->notify(new NewReservationNotification($reservation));
+        try {
+            $admins = User::role([User::ROLE_SUPER_ADMIN, User::ROLE_ADMIN])->get();
+            foreach ($admins as $admin) {
+                $admin->notify(new NewReservationNotification($reservation));
+            }
+        } catch (\Throwable) {
+            // Rôles non configurés — on continue sans notification admin
         }
 
         // Email de confirmation au client
