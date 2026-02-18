@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\City;
 use App\Models\Vehicle;
-use Illuminate\Http\Response;
 
 class SeoController extends Controller
 {

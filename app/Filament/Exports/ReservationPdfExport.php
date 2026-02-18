@@ -4,7 +4,6 @@ namespace App\Filament\Exports;
 
 use App\Models\Reservation;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Support\Collection;
 use Symfony\Component\HttpFoundation\Response;
 
 class ReservationPdfExport

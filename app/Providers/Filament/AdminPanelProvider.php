@@ -31,7 +31,7 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->registration(false)
             ->passwordReset(false)
-            ->emailVerification(false)
+            ->emailVerification()
             ->profile()
             ->brandName('CKF Motors')
             ->favicon(asset('favicon.ico'))

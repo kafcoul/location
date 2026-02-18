@@ -6,7 +6,6 @@ use Filament\Pages\Page;
 use Filament\Actions\Action;
 use Filament\Notifications\Notification;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\File;
 
 class MaintenanceMode extends Page
 {

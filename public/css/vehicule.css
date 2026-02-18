@@ -84,12 +84,10 @@ body.vp-body::-webkit-scrollbar-thumb {
 .vehicule-hero__overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-        to bottom,
-        rgba(0, 0, 0, 0.3) 0%,
-        rgba(0, 0, 0, 0.15) 40%,
-        rgba(0, 0, 0, 0.5) 100%
-    );
+    background: linear-gradient(to bottom,
+            rgba(0, 0, 0, 0.3) 0%,
+            rgba(0, 0, 0, 0.15) 40%,
+            rgba(0, 0, 0, 0.5) 100%);
     z-index: 1;
 }
 
@@ -153,6 +151,39 @@ body.vp-body::-webkit-scrollbar-thumb {
 
 .vp-main__gallery {
     min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* On desktop, show info-wrap (brand/model) between gallery and specs */
+.vp-main__info-wrap {
+    display: block;
+}
+
+/* On desktop, hide the hero-img (hero section handles this) */
+.vp-main__hero-img-wrap {
+    display: none;
+}
+
+/* On desktop, reorder: gallery carousel at top, then brand/model, then specs, then description */
+.vp-main__gallery-wrap {
+    order: 1;
+}
+
+.vp-main__info-wrap {
+    order: 2;
+}
+
+.vp-main__pricing-wrap {
+    order: 3;
+}
+
+.vp-main__specs-wrap {
+    order: 4;
+}
+
+.vp-main__desc-wrap {
+    order: 5;
 }
 
 .vp-main__sidebar {
@@ -401,12 +432,14 @@ body.vp-body::-webkit-scrollbar-thumb {
 }
 
 /* ============================================================
-   INFO SECTION — Title + Specs row
+   INFO SECTION — Title (Brand + Model)
+   Visible on both desktop and mobile
    ============================================================ */
 
 .vp-info {
     background: var(--vp-white);
     padding: 30px 0 0;
+    display: block;
 }
 
 .vp-info__container {
@@ -650,20 +683,36 @@ body.vp-body::-webkit-scrollbar-thumb {
 }
 
 /* ============================================================
+   PRICING MOBILE SLOT — Inside gallery column, visible < 1024px
+   ============================================================ */
+
+.vp-pricing-mobile-slot {
+    display: none;
+}
+
+@media (max-width: 1023px) {
+    .vp-pricing-mobile-slot {
+        display: block;
+    }
+
+    .vp-pricing-mobile-slot .vp-pricing-mobile {
+        display: block;
+        padding: 10px 0 10px;
+        border-top: none;
+    }
+
+    /* Cacher le header marque/modèle du pricing (déjà affiché dans vp-info) */
+    .vp-pricing-mobile-slot .vp-pricing-mobile__header {
+        display: none;
+    }
+}
+
+/* ============================================================
    PRICING MOBILE — Visible < 1024px only
    ============================================================ */
 
 .vp-pricing-mobile {
     display: none;
-}
-
-@media (max-width: 1023px) {
-    .vp-pricing-mobile {
-        display: block;
-        background: var(--vp-white);
-        padding: 40px 24px 60px;
-        border-top: 1px solid rgba(0, 0, 0, 0.06);
-    }
 }
 
 .vp-pricing-mobile__inner {
@@ -770,6 +819,34 @@ body.vp-body::-webkit-scrollbar-thumb {
 }
 
 /* ============================================================
+   HERO IMAGE MOBILE — Single main image at top (mobile only)
+   ============================================================ */
+
+.vp-main__hero-img-wrap {
+    display: none;
+    /* Hidden on desktop — hero section handles this */
+}
+
+.vp-hero-img {
+    position: relative;
+}
+
+.vp-hero-img__viewport {
+    width: 100%;
+    border-radius: var(--vp-radius);
+    overflow: hidden;
+    background: var(--vp-gray-100);
+}
+
+.vp-hero-img__img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    aspect-ratio: 16 / 10;
+}
+
+/* ============================================================
    REVEAL ANIMATION
    ============================================================ */
 
@@ -788,134 +865,511 @@ body.vp-body::-webkit-scrollbar-thumb {
    RESPONSIVE
    ============================================================ */
 
-/* Tablet */
+/* ---- Tablet & Mobile (< 1024px) ---- */
 @media (max-width: 1023px) {
+
+    /* ===== HERO : masqué en mobile (style ASS LOC) ===== */
     .vehicule-hero {
-        height: 70vh;
-        min-height: 450px;
+        display: none;
     }
 
-    .vehicule-hero__brand {
-        font-size: 50px;
+    /* Force le fond blanc sur tout le body et le spacer de nav */
+    body.vp-body,
+    body.vp-body>.h-20,
+    body.vp-body>div.h-20 {
+        background: #ffffff !important;
     }
 
-    .vehicule-hero__model {
-        font-size: 22px;
-    }
-
+    /* ===== MAIN SECTION ===== */
     .vp-main {
-        padding: 40px 24px 0;
+        padding: 0;
     }
 
     .vp-main__container {
         grid-template-columns: 1fr;
-        gap: 30px;
+        gap: 0;
     }
 
+    /* Colonne gauche en flex column — ordre mobile naturel */
+    .vp-main__gallery {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Réinitialiser l'ordre pour mobile :
+       1. info-wrap      (brand/model)
+       2. hero-img-wrap  (image principale)
+       3. pricing-wrap   (tarifs + abonnements + CTA)
+       4. specs-wrap     (grille 2×3)
+       5. gallery-wrap   (carousel avec flèches)
+       6. desc-wrap      (description + détails)
+    */
+    .vp-main__info-wrap {
+        order: 1;
+    }
+
+    .vp-main__hero-img-wrap {
+        order: 2;
+    }
+
+    .vp-main__pricing-wrap {
+        order: 3;
+    }
+
+    .vp-main__specs-wrap {
+        order: 4;
+    }
+
+    .vp-main__gallery-wrap {
+        order: 5;
+    }
+
+    .vp-main__desc-wrap {
+        order: 6;
+    }
+
+    /* L'ordre DOM mobile :
+       1. info-wrap      (brand/model)
+       2. hero-img-wrap  (image principale)
+       3. pricing-wrap   (tarifs + abonnements + CTA)
+       4. specs-wrap     (grille 2×3)
+       5. gallery-wrap   (carousel avec flèches)
+       6. desc-wrap      (description + détails)
+    */
+
+    /* Info-wrap : visible en mobile */
+    .vp-main__info-wrap {
+        display: block;
+    }
+
+    /* Sidebar desktop : masquée */
     .vp-main__sidebar {
-        position: static;
-        max-width: 450px;
         display: none;
     }
 
+    /* ===== BRAND / MODEL TITLE ===== */
     .vp-info {
-        padding: 24px 0 0;
+        display: block;
+        padding: 20px 20px 12px;
+    }
+
+    .vp-info__header {
+        margin-bottom: 0;
     }
 
     .vp-info__brand {
-        font-size: 32px;
+        font-size: 26px;
+        font-weight: 900;
+        text-transform: uppercase;
+        line-height: 1.1;
+        color: var(--vp-black);
+    }
+
+    .vp-info__model {
+        font-size: 14px;
+        font-weight: 300;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--vp-gray-400);
+        margin: 4px 0 0;
+    }
+
+    /* ===== HERO IMAGE (image principale simple en haut) ===== */
+    .vp-main__hero-img-wrap {
+        display: block;
+        padding: 0 20px;
+    }
+
+    .vp-hero-img__viewport {
+        border-radius: 16px;
+        overflow: hidden;
+    }
+
+    .vp-hero-img__img {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover;
+        aspect-ratio: 16 / 10;
+        border-radius: 16px;
+    }
+
+    /* ===== GALLERY CAROUSEL (en bas, entre specs et description) ===== */
+    .vp-main__gallery-wrap {
+        display: block;
+        padding: 24px 20px 0;
+    }
+
+    .vp-gallery {
+        display: block;
+        position: relative;
+        width: 100%;
+    }
+
+    .vp-gallery__viewport {
+        position: relative;
+        width: 100%;
+        border-radius: 16px;
+        aspect-ratio: 16 / 10;
+        min-height: 200px;
+        overflow: hidden;
+        background: var(--vp-gray-100);
+    }
+
+    .vp-gallery__img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .vp-gallery__arrow {
+        width: 42px;
+        height: 42px;
+    }
+
+    .vp-gallery__arrow--prev {
+        left: 12px;
+    }
+
+    .vp-gallery__arrow--next {
+        right: 12px;
+    }
+
+    /* ===== PRICING MOBILE SLOT ===== */
+    .vp-pricing-mobile-slot {
+        display: block;
+    }
+
+    .vp-pricing-mobile-slot .vp-pricing-mobile {
+        display: block;
+        padding: 24px 20px 0;
+    }
+
+    /* Cacher le header marque/modèle du pricing (déjà affiché via vp-info) */
+    .vp-pricing-mobile-slot .vp-pricing-mobile__header {
+        display: none;
+    }
+
+    .vp-pricing-mobile__inner {
+        max-width: 100%;
+    }
+
+    /* Tarifs section */
+    .vp-pricing-mobile__block {
+        margin-bottom: 24px;
+    }
+
+    .vp-pricing-mobile__title {
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--vp-black);
+        margin: 0 0 12px;
+    }
+
+    .vp-pricing-mobile__note {
+        font-size: 9px;
+        margin: -8px 0 12px;
+    }
+
+    .vp-pricing-mobile__row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    .vp-pricing-mobile__label {
+        font-size: 13px;
+        color: var(--vp-gray-500);
+        flex-shrink: 0;
+    }
+
+    .vp-pricing-mobile__value {
+        font-size: 14px;
+        font-weight: 700;
+        text-align: right;
+        white-space: nowrap;
+        color: var(--vp-black);
+    }
+
+    /* CTA Réserver */
+    .vp-pricing-mobile__cta {
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding: 16px 0;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--vp-white);
+        background: var(--vp-black);
+        border: 1px solid var(--vp-black);
+        border-radius: 30px;
+        text-decoration: none;
+        margin-top: 20px;
+    }
+
+    /* ===== SPECS — Grille 2 colonnes style ASS LOC ===== */
+    .vp-main__specs-wrap {
+        padding: 24px 20px 0;
     }
 
     .vp-specs {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .vp-specs__item {
-        padding: 8px 18px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+        padding: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        border-left: 1px solid rgba(0, 0, 0, 0.1);
+        border-bottom: none;
+        margin: 0;
     }
 
     .vp-specs__sep {
         display: none;
     }
 
+    .vp-specs__item {
+        padding: 16px 14px;
+        border-right: 1px solid rgba(0, 0, 0, 0.1);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        align-items: center;
+        text-align: center;
+    }
+
+    .vp-specs__label {
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        color: var(--vp-black);
+        margin-bottom: 6px;
+    }
+
+    .vp-specs__value {
+        font-size: 13px;
+        font-weight: 400;
+        color: var(--vp-gray-500);
+    }
+
+    /* ===== DESCRIPTION + DETAILS ===== */
+    .vp-main__desc-wrap {
+        padding: 0 20px;
+    }
+
+    .vp-description-inline {
+        padding: 28px 0 10px;
+    }
+
+    .vp-description-inline .vp-description__text {
+        font-size: 14px;
+        line-height: 1.8;
+        color: rgba(0, 0, 0, 0.45);
+        margin-bottom: 30px;
+    }
+
+    .vp-description-inline .vp-description__section {
+        margin-bottom: 32px;
+    }
+
+    .vp-description-inline .vp-description__section-title {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 14px;
+    }
+
+    .vp-description-inline .vp-description__list-item {
+        font-size: 13px;
+        line-height: 1.7;
+        margin-bottom: 8px;
+    }
+
+    /* Standalone description section (if used) — hidden to avoid duplication */
     .vp-description {
-        padding: 30px 24px 50px;
+        display: none;
     }
 }
 
-/* Small mobile */
-@media (max-width: 639px) {
-    .vehicule-hero {
-        height: 60vh;
-        min-height: 380px;
-    }
-
-    .vehicule-hero__brand {
-        font-size: 36px;
-    }
-
-    .vehicule-hero__model {
-        font-size: 16px;
-        letter-spacing: 0.1em;
-    }
-
-    .vehicule-hero__subtitle {
-        font-size: 12px;
-    }
-
-    .vp-main {
-        padding: 30px 16px 0;
-    }
-
-    .vp-gallery__viewport {
-        border-radius: 14px;
-        aspect-ratio: 4 / 3;
-    }
-
-    .vp-gallery__arrow {
-        width: 40px;
-        height: 40px;
-    }
-
-    .vp-gallery__arrow--prev {
-        left: 10px;
-    }
-
-    .vp-gallery__arrow--next {
-        right: 10px;
-    }
-
+/* ---- Small Mobile (≤ 480px) ---- */
+@media (max-width: 480px) {
     .vp-info {
-        padding: 20px 0 0;
+        padding: 16px 16px 10px;
     }
 
     .vp-info__brand {
-        font-size: 26px;
+        font-size: 22px;
     }
 
     .vp-info__model {
-        font-size: 14px;
+        font-size: 12px;
+    }
+
+    .vp-main__gallery-wrap {
+        display: block;
+        padding: 0 16px;
+    }
+
+    .vp-gallery__viewport {
+        border-radius: 12px;
+        aspect-ratio: 4 / 3;
+        min-height: 180px;
+    }
+
+    .vp-gallery__arrow {
+        width: 36px;
+        height: 36px;
+    }
+
+    .vp-gallery__arrow--prev {
+        left: 8px;
+    }
+
+    .vp-gallery__arrow--next {
+        right: 8px;
+    }
+
+    .vp-pricing-mobile-slot .vp-pricing-mobile {
+        padding: 20px 16px 0;
+    }
+
+    .vp-pricing-mobile__label {
+        font-size: 12px;
+    }
+
+    .vp-pricing-mobile__value {
+        font-size: 13px;
+    }
+
+    .vp-pricing-mobile__cta {
+        padding: 14px 0;
+        font-size: 11px;
+    }
+
+    .vp-main__specs-wrap {
+        padding: 20px 16px 0;
     }
 
     .vp-specs__item {
-        padding: 6px 14px;
+        padding: 12px 10px;
+    }
+
+    .vp-specs__label {
+        font-size: 8px;
     }
 
     .vp-specs__value {
         font-size: 12px;
     }
 
-    .vp-description {
-        padding: 20px 16px 40px;
+    .vp-main__desc-wrap {
+        padding: 0 16px;
     }
 
-    .vp-description__section-title {
-        font-size: 18px;
+    .vp-main__hero-img-wrap {
+        padding: 0 16px;
+    }
+
+    .vp-hero-img__viewport {
+        border-radius: 12px;
+    }
+
+    .vp-hero-img__img {
+        border-radius: 12px;
+        aspect-ratio: 4 / 3;
+    }
+
+    .vp-description-inline {
+        padding: 24px 0 10px;
+    }
+
+    .vp-description-inline .vp-description__text {
+        font-size: 13px;
+    }
+
+    .vp-description-inline .vp-description__section-title {
+        font-size: 16px;
+    }
+
+    .vp-description-inline .vp-description__list-item {
+        font-size: 12px;
     }
 }
 
-/* Large screens */
+/* ---- Extra Small (≤ 360px — petits Android) ---- */
+@media (max-width: 360px) {
+    .vp-info {
+        padding: 14px 14px 8px;
+    }
+
+    .vp-info__brand {
+        font-size: 20px;
+    }
+
+    .vp-info__model {
+        font-size: 11px;
+    }
+
+    .vp-main__gallery-wrap {
+        display: block;
+        padding: 0 14px;
+    }
+
+    .vp-gallery__viewport {
+        border-radius: 10px;
+        min-height: 160px;
+    }
+
+    .vp-pricing-mobile-slot .vp-pricing-mobile {
+        padding: 18px 14px 0;
+    }
+
+    .vp-pricing-mobile__label {
+        font-size: 11px;
+    }
+
+    .vp-pricing-mobile__value {
+        font-size: 12px;
+    }
+
+    .vp-main__specs-wrap {
+        padding: 18px 14px 0;
+    }
+
+    .vp-specs__item {
+        padding: 10px 8px;
+    }
+
+    .vp-specs__label {
+        font-size: 7px;
+    }
+
+    .vp-specs__value {
+        font-size: 11px;
+    }
+
+    .vp-main__desc-wrap {
+        padding: 0 14px;
+    }
+
+    .vp-main__hero-img-wrap {
+        padding: 0 14px;
+    }
+
+    .vp-hero-img__viewport {
+        border-radius: 10px;
+    }
+
+    .vp-hero-img__img {
+        border-radius: 10px;
+    }
+}
+
+/* ---- Large screens (≥ 1440px) ---- */
 @media (min-width: 1440px) {
     .vp-main__container {
         max-width: 1400px;
